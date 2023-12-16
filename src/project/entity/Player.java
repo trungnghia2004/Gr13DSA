@@ -1,7 +1,6 @@
 package project.entity;
 
 
-
 import project.test2.GamePanel;
 import project.test2.KeyHandler;
 
@@ -26,7 +25,7 @@ public class Player extends Entity {
         solidArea = new Rectangle(12, 24, 24, 24);
         setDefaultValues();
         getPlayerImage();
-        direction="up";
+        direction = "down";
     }
 
     public void setDefaultValues() {
@@ -53,7 +52,7 @@ public class Player extends Entity {
     public void update() {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             if (keyH.upPressed) {
-                    direction = "up";
+                direction = "up";
 //                    System.out.println("check");
             } else if (keyH.downPressed) {
                 direction = "down";
@@ -112,6 +111,6 @@ public class Player extends Entity {
                 } else image = right2;
             }
         }
-        g2d.drawImage(image, screenX,screenY,gp.tileSize, gp.tileSize, null);
+        g2d.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 }

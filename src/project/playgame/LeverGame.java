@@ -17,7 +17,7 @@ public class LeverGame extends JFrame implements ActionListener {
     JLabel bk;
 
     public LeverGame() {
-        this.setSize(1280, 853);
+        this.setSize(768, 576);
         this.setResizable(false);
         ImageIcon logo = new ImageIcon("src\\project\\imag");
         this.getContentPane().setBackground(Color.black);
@@ -28,7 +28,7 @@ public class LeverGame extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
 
         hard = new JButton();
-        hard.setBounds(540, 100, 200, 100);
+        hard.setBounds(284, 100, 200, 100);
         hard.setText("HARD");
         hard.setFont(new Font("Comic Sans", Font.BOLD, 25));
         hard.setForeground(Color.red);
@@ -38,7 +38,7 @@ public class LeverGame extends JFrame implements ActionListener {
         bk.add(hard);
 
         medium = new JButton();
-        medium.setBounds(540, 200, 200, 100);
+        medium.setBounds(284, 200, 200, 100);
         medium.setText("MEDIUM");
         medium.setFont(new Font("Comic Sans", Font.BOLD, 25));
         medium.setForeground(Color.red);
@@ -48,7 +48,7 @@ public class LeverGame extends JFrame implements ActionListener {
         bk.add(medium);
 
         easy = new JButton();
-        easy.setBounds(540, 300, 200, 100);
+        easy.setBounds(284, 300, 200, 100);
         easy.setText("EASY");
         easy.setFont(new Font("Comic Sans", Font.BOLD, 25));
         easy.setForeground(Color.red);
@@ -58,7 +58,7 @@ public class LeverGame extends JFrame implements ActionListener {
         bk.add(easy);
 
         exit = new JButton();
-        exit.setBounds(540, 400, 200, 100);
+        exit.setBounds(284, 400, 200, 100);
         exit.setText("EXIT");
         exit.setFont(new Font("Comic Sans", Font.BOLD, 25));
         exit.setForeground(Color.red);
@@ -84,7 +84,8 @@ public class LeverGame extends JFrame implements ActionListener {
 
         }
         if (e.getSource() == exit) {
-            new DaoDien();
+            Exit exit1 = new Exit();
+            exit1.check = "lever";
             this.setVisible(false);
         }
     }

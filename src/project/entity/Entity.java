@@ -1,7 +1,6 @@
 package project.entity;
 
 
-
 import project.test2.GamePanel;
 
 import java.awt.*;
@@ -20,13 +19,14 @@ public class Entity {
     public Rectangle solidArea = new Rectangle(12, 24, 24, 24);
     public boolean collisionOn;
     public int actionLockCounter = 0;
+
     public Entity(GamePanel gp) {
         this.gp = gp;
         this.direction = "down";
 
     }
 
-  public   int screenX, screenY;
+    public int screenX, screenY;
     BufferedImage image;
 
     public void draw(Graphics2D g2, GamePanel gp) {
@@ -75,8 +75,17 @@ public class Entity {
                 && worldY - 24 <= gp.player.worldY && worldY + 24 >= gp.player.worldY) {
             gp.gameOver = true;
 //            collisionOn = true;
+        } else if (gp.tileManager.map[(gp.player.worldY + solidArea.y) / 48][(gp.player.worldX + solidArea.x) / 48] == 7) {
+            gp.winGame = true;
+        } else if (gp.tileManager.map[(gp.player.worldY + solidArea.y) / 48][(gp.player.worldX + solidArea.x) / 48] == 3) {
+            gp.count++;
+            gp.tileManager.map[(gp.player.worldY + solidArea.y) / 48][(gp.player.worldX + solidArea.x) / 48] = 2;
+        }
+        if (gp.count == 10) {
+            gp.tileManager.map[31][51] = 7;
         }
     }
+
     public void update() {
         // check collision
         setAction();

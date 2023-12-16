@@ -6,13 +6,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DaoDien extends JFrame implements ActionListener {
+public class Interface extends JFrame implements ActionListener {
     JButton start;
     JButton huong;
     JButton exit;
     JLabel bk;
 
-   public DaoDien() {
+   public Interface() {
 
         this.setTitle("Escape the dungeon");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,13 +34,13 @@ public class DaoDien extends JFrame implements ActionListener {
 
 
         start = new JButton();
-        start.setBounds(540, 100, 200, 100);
+        start.setBounds(284, 100, 200, 100);
         start.setBorderPainted(false);
         start.setContentAreaFilled(false);
 
 
         start = new JButton();
-        start.setBounds(540, 100, 200, 100);
+        start.setBounds(284, 100, 200, 100);
         start.setText("START");
         start.setFont(new Font("Comic Sans", Font.BOLD, 20));
         start.setForeground(Color.red);
@@ -51,7 +51,7 @@ public class DaoDien extends JFrame implements ActionListener {
         bk.add(start);
 
         huong = new JButton();
-        huong.setBounds(540, 200, 200, 100);
+        huong.setBounds(284, 200, 200, 100);
         huong.setText("HOW TO PLAY");
         huong.setFont(new Font("Comic Sans", Font.BOLD, 20));
         huong.setForeground(Color.red);
@@ -60,9 +60,7 @@ public class DaoDien extends JFrame implements ActionListener {
        bk.add(huong);
 
         exit = new JButton();
-        exit.setBounds(540, 300, 200, 100);
-        exit = new JButton();
-        exit.setBounds(540, 300, 200, 100);
+        exit.setBounds(284, 300, 200, 100);
         exit.setText("EXIT");
         exit.setFont(new Font("Comic Sans", Font.BOLD, 25));
         exit.setForeground(Color.red);
@@ -85,7 +83,8 @@ public class DaoDien extends JFrame implements ActionListener {
 
         }
         if (e.getSource() == exit) {
-            System.exit(0);
+            Exit exit1 = new Exit();
+            exit1.check = "interface";
         }
     }
 }

@@ -1,11 +1,12 @@
 package project.test2;
 
 
-
 import project.entity.Entity;
 import project.entity.Player;
 import project.findPath.PathFinderUsingBfs;
 import project.findPath.PathFinderUsingDfs;
+import project.playgame.Again;
+import project.playgame.WinGame;
 import project.tile.TileManager;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxScreenRow = 12;
     public final int screenWidth = maxScreenCol * tileSize;
     public final int screenHeight = maxScreenRow * tileSize;
-//    public final int maxWorldCol = 47;
+    //    public final int maxWorldCol = 47;
 //    public final int maxWorldRow = 56;
 //    public final int worldWidth = tileSize * maxWorldCol;
 //    public final int worldHeight = tileSize * maxWorldRow;
@@ -29,28 +30,39 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyH);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
-    public Entity[] monsters= new Entity[10];
-    public int idxMonster=0;
+    public Entity[] monsters = new Entity[10];
+    public int idxMonster = 0;
     public TileManager tileManager = new TileManager(this);
     public boolean gameOver;
-    public String DifficultLevel = "balanced";
+    public boolean winGame;
+    public String DifficultLevel = "hardTest";
     public PathFinderUsingDfs pathFinderUsingDfs = new PathFinderUsingDfs(this);
     public PathFinderUsingBfs pathFinderUsingBfs = new PathFinderUsingBfs(this);
+    public JFrame window;
+    public int count = 0;
 
-    public GamePanel() {
+    public int getCount() {
+        return count;
+    }
+    JLabel gemCountLabel = new JLabel("Total-0", SwingConstants.LEFT);
+    public GamePanel(JFrame window) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
-
+        this.window = window;
+        window.add(gemCountLabel, BorderLayout.WEST);
         startGameThread();
     }
-
+    public void updateGemCount(int gemCount) {
+        gemCountLabel.setText("Total\n"+ gemCount);
+    }
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
+
     @Override
     public void run() {
         double drawInterval = (double) 1000000000 / FPS;
@@ -72,12 +84,30 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
+
     public void setUpGame() {
         assetSetter.setMonster();
     }
 
+    boolean check = true;
+
     public void update() {
-        if (gameOver) return;
+        if (gameOver) {
+            if (check) {
+                check = false;
+                window.dispose();
+                new Again();
+                return;
+            }
+        }
+        if (winGame) {
+            if (check) {
+                check = false;
+                window.dispose();
+                new WinGame();
+                return;
+            }
+        }
         player.update();
         for (Entity monster : monsters) {
             if (monster != null) {
@@ -85,6 +115,7 @@ public class GamePanel extends JPanel implements Runnable {
                 idxMonster++;
             }
         }
+        updateGemCount(count);
         idxMonster = 0;
     }
 
