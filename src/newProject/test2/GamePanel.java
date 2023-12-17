@@ -39,10 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
     public PathFinderUsingBfs pathFinderUsingBfs = new PathFinderUsingBfs(this);
     public JFrame window;
     public int count = 0;
-
-    public int getCount() {
-        return count;
-    }
+    public int totalSharp = 290;
     JLabel gemCountLabel = new JLabel("Remaining", SwingConstants.LEFT);
     public GamePanel(JFrame window,String lever) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -52,11 +49,13 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         this.window = window;
         this.DifficultLevel = lever;
-        window.add(gemCountLabel,BorderLayout.NORTH);
+        window.add(gemCountLabel, BorderLayout.BEFORE_FIRST_LINE);
         startGameThread();
     }
     public void updateGemCount(int gemCount) {
-        gemCountLabel.setText("Remaining: " + (tileManager.count - count));
+        if (count < totalSharp) {
+            gemCountLabel.setText("Remaining : " + (totalSharp - gemCount) + " sharps");
+        } else gemCountLabel.setText("Run as fast as\n you can towards the gate\n");
     }
     public void startGameThread() {
         gameThread = new Thread(this);
